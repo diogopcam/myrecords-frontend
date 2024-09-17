@@ -34,14 +34,14 @@ function App() {
   return (
     <div className='FullScreen'>
       <div className='Menu'>
-        <div className='MenuContent'>
+        <div className='p-4 text-4xl'>
           <h1>Bem vindo ao myrecords</h1>
-          <p className='Text'>
+          <p className='text-base'>
             Aqui você pode criar e compartilhar uma colagem dos seus álbuns favoritos.
           </p>
-          <label htmlFor="albumInput">Texto:</label>
+          <label className="text-base">Texto:</label>
           <input
-            id="albumInput"
+            className='text-base text-black'
             type="text"
             value={inputValue}
             onChange={handleInputChange}
@@ -52,7 +52,7 @@ function App() {
             }}
             placeholder="Digite o nome do álbum..."
           />
-          <button onClick={handleButtonClick}>Buscar Álbuns</button> {/* Botão para buscar álbuns */}
+          <button className='text-base' onClick={handleButtonClick}>Buscar Álbuns</button> {/* Botão para buscar álbuns */}
         </div>
       </div>
       <div className="App">
