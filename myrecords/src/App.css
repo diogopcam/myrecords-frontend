@@ -6,9 +6,7 @@
 }
 
 .App{
-  /* height: 100vh; */
   display: flex;
-  /* flex-direction: column; */
   justify-content: center;
   align-items: center;
   background-image: url('/Users/dpcam/Desktop/myrecords-frontend/myrecords/src/images/my_albums.jpeg');
@@ -29,7 +27,7 @@
   padding-left: 5px;
 }
 
-.album-frame {
+.album- {
   width: 170px;
   height: 150px;
   border: 2px solid black;
@@ -41,10 +39,10 @@
   transition: transform 0.3s ease-in-out;
 }
 
-.album-container{
+/* .album-container{
   padding-top: 40px;
   width: 85%;
-}
+} */
 
 .imagem-da-moldura {
   width: 100%;  /* Faz a imagem preencher a largura da moldura */

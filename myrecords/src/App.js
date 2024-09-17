@@ -57,12 +57,14 @@ function App() {
         </div>
       </div>
       <div className="App">
-        <div className="album-container">
+        <div >
           {albums.length > 0 ? (
             albums.map((album) => (
               <AlbumFrame
-                key={album}
-                imageUrl={album} // Usa a primeira imagem do álbum
+                imageUrl={album}
+                width={150}
+                height={150}
+              // Usa a primeira imagem do álbum
               />
             ))
           ) : (
