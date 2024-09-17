@@ -1,6 +1,7 @@
 /* App.css */
 .FullScreen{
   width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: row;
 }
@@ -20,7 +21,7 @@
 .Menu {
   background-color: black;
   color: #f0f0f0;
-  width: 35%;
+  width: 45%;
 }
 
 .MenuContent {

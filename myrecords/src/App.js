@@ -34,8 +34,8 @@ function App() {
 
   return (
     <div className='FullScreen'>
-      <div className='Menu'>
-        <div className='p-4 text-4xl'>
+      <div className='p-5 Menu'>
+        <div className='text-4xl'>
           <h1>Bem vindo ao myrecords</h1>
           <p className='text-base'>
             Aqui você pode criar e compartilhar uma colagem dos seus álbuns favoritos.
@@ -54,16 +54,13 @@ function App() {
             placeholder="Digite o nome do álbum..."
           />
           <button className='text-base text-black bg-white' onClick={handleButtonClick}>Buscar Álbuns</button> {/* Botão para buscar álbuns */}
-        </div>
-      </div>
-      <div className="App">
-        <div >
+          <div className="h-96 w-50 overflow-auto border border-gray-300">
           {albums.length > 0 ? (
             albums.map((album) => (
               <AlbumFrame
                 imageUrl={album}
-                width={150}
-                height={150}
+                width={100}
+                height={100}
               // Usa a primeira imagem do álbum
               />
             ))
@@ -71,6 +68,10 @@ function App() {
             <p>No albums found. Please search again.</p>
           )}
         </div>
+        </div>
+      </div>
+      <div className="App">
+       
       </div>
     </div>
   );
