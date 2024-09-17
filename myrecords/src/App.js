@@ -29,6 +29,7 @@ function App() {
   // Função para lidar com o clique do botão
   const handleButtonClick = () => {
     fetchAlbums(); // Chama a função para buscar álbuns
+    console.log(albums)
   };
 
   return (
@@ -52,7 +53,7 @@ function App() {
             }}
             placeholder="Digite o nome do álbum..."
           />
-          <button className='text-base' onClick={handleButtonClick}>Buscar Álbuns</button> {/* Botão para buscar álbuns */}
+          <button className='text-base text-black bg-white' onClick={handleButtonClick}>Buscar Álbuns</button> {/* Botão para buscar álbuns */}
         </div>
       </div>
       <div className="App">
@@ -60,8 +61,8 @@ function App() {
           {albums.length > 0 ? (
             albums.map((album) => (
               <AlbumFrame
-                key={album.id}
-                imageUrl={album.images[0]?.url} // Usa a primeira imagem do álbum
+                key={album}
+                imageUrl={album} // Usa a primeira imagem do álbum
               />
             ))
           ) : (
