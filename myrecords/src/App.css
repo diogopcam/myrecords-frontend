@@ -18,11 +18,11 @@
   width: 100%; /* Largura da div, 100% da largura do container */
 }
 
-.Menu {
+/* .Menu {
   background-color: black;
   color: #f0f0f0;
   width: 45%;
-}
+} */
 
 .MenuContent {
   padding-left: 5px;

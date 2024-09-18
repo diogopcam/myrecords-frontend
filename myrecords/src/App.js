@@ -34,27 +34,29 @@ function App() {
 
   return (
     <div className='FullScreen'>
-      <div className='p-5 Menu'>
-        <div className='text-4xl'>
+      <div className='w-[45%] w- bg-black p-6 flex flex-col justify-between'>
+        <div className='text-4xl text-white p-'>
           <h1>Bem vindo ao myrecords</h1>
           <p className='text-base'>
             Aqui você pode criar e compartilhar uma colagem dos seus álbuns favoritos.
           </p>
-          <label className="text-base">Texto:</label>
-          <input
-            className='text-base text-black'
-            type="text"
-            value={inputValue}
-            onChange={handleInputChange}
-            onKeyPress={(event) => {
-              if (event.key === 'Enter') {
-                fetchAlbums(); // Busca álbuns quando a tecla Enter é pressionada
-              }
-            }}
-            placeholder="Digite o nome do álbum..."
-          />
-          <button className='text-base text-black bg-white' onClick={handleButtonClick}>Buscar Álbuns</button> {/* Botão para buscar álbuns */}
-          <div className="h-96 w-50 overflow-auto border border-gray-300">
+          <div className='flex flex-row w-full justify-between flex-start'>
+            <label className="text-base"></label>
+            <input
+              className='text-base text-black w-[100%]'
+              type="text"
+              value={inputValue}
+              onChange={handleInputChange}
+              onKeyPress={(event) => {
+                if (event.key === 'Enter') {
+                  fetchAlbums(); // Busca álbuns quando a tecla Enter é pressionada
+                }
+              }}
+              placeholder="Digite o nome do álbum..."
+            />
+            <button className='text-base text-black bg-white' onClick={handleButtonClick}>Buscar Álbuns</button> {/* Botão para buscar álbuns */}
+          </div>
+          <div className="h-96 w-full overflow-auto border border-gray-300">
           {albums.length > 0 ? (
             albums.map((album) => (
               <AlbumFrame
@@ -65,7 +67,7 @@ function App() {
               />
             ))
           ) : (
-            <p>No albums found. Please search again.</p>
+            <p className='text-base'> No albums found. Please search again.</p>
           )}
         </div>
         </div>
