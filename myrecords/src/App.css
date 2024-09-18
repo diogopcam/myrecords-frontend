@@ -10,7 +10,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('/Users/dpcam/Desktop/myrecords-frontend/myrecords/src/images/my_albums.jpeg');
+  /* background-image: url('/Users/dpcam/Desktop/myrecords-frontend/myrecords/src/images/my_albums.jpeg'); */
+  background-image: url('images/ellicia-recordstore.jpg');
   background-size: cover;
   background-position: center;  /* Centraliza a imagem na div */
   background-repeat: no-repeat;  /* Evita repetição da imagem */

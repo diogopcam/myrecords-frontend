@@ -23,7 +23,7 @@ function AlbumFrame({ imageUrl, width, height, onDrop }) {
       onDragOver={handleDragOver}
       onDragStart={handleDragStart}
       style={{ width: `${width}px`, height: `${height}px` }}
-      className="border-2 border-black m-2 inline-block bg-gray-200 hover:text-white hover:bg-black"
+      className="border-2 border-black m-2 inline-block bg-gray-200 hover:text-white hover:bg-black hover: cursor-pointer"
     >
       {imageUrl ? (
         <img src={imageUrl} alt="Album Cover" className="w-full h-full object-cover" />

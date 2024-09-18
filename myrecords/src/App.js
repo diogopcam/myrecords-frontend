@@ -34,7 +34,7 @@ function App() {
 
   return (
     <div className='FullScreen'>
-      <div className='w-[45%] bg-black p-6 flex flex-col justify-between'>
+      <div className='bg-black w-[45%] p-6 flex flex-col justify-between'>
         <div className='text-4xl text-white'>
           <h1>Bem vindo ao myrecords</h1>
           <p className='text-base'>
