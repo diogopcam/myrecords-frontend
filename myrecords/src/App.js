@@ -61,6 +61,9 @@ function App() {
                 <AlbumFrame
                   key={index}
                   imageUrl={album.albumCover}
+                  albumName={album.albumName}
+                  artistName={album.artistName}
+                  albumType={album.albumType}
                   width={100}
                   height={100}
                 />
@@ -72,7 +75,7 @@ function App() {
         </div>
       </div>
       <div className="App">
-        <AlbumCollage numberPositions={15} width={100} height={100}/>
+        <AlbumCollage numberPositions={15}/>
       </div>
     </div>
   );
