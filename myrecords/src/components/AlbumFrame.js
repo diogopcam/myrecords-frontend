@@ -1,10 +1,29 @@
 import React from 'react';
 
-function AlbumFrame({ imageUrl, width, height }) {
+function AlbumFrame({ imageUrl, width, height, onDrop }) {
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const imageUrl = e.dataTransfer.getData("text/plain");
+    onDrop(imageUrl);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDragStart = (e) => {
+    e.dataTransfer.setData("text/plain", imageUrl);
+  };
+
   return (
     <div
-      style={{ width: `${width}px`, height: `${height}px` }} // Definindo tamanho com estilos inline
-      className="border-2 border-black m-2 inline-block bg-gray-200 relative overflow-hidden transform perspective-[600px] rotate-x-[10deg] transition-transform duration-300 ease-in-out"
+      draggable={imageUrl !== null} // Só é arrastável se houver uma imagem
+      onDrop={handleDrop}
+      onDragOver={handleDragOver}
+      onDragStart={handleDragStart}
+      style={{ width: `${width}px`, height: `${height}px` }}
+      className="border-2 border-black m-2 inline-block bg-gray-200 hover:text-white hover:bg-black"
     >
       {imageUrl ? (
         <img src={imageUrl} alt="Album Cover" className="w-full h-full object-cover" />
