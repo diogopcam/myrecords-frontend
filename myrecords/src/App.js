@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import AlbumFrame from './components/AlbumFrame';
 import AlbumCollage from './components/AlbumCollage';
+import Lupa from './styles/icons/lupa.png'
 import './App.css';
 
 function App() {
@@ -36,13 +37,13 @@ function App() {
     <div className='FullScreen'>
       <div className='bg-black w-[45%] p-6 flex flex-col justify-between'>
         <div className='text-4xl text-white'>
-          <h1>Bem vindo ao myrecords</h1>
-          <p className='text-base'>
+          <h1 className='pb-5'>Bem vindo ao myrecords</h1>
+          <p className='pb-5 text-base'>
             Aqui você pode criar e compartilhar uma colagem dos seus álbuns favoritos.
           </p>
-          <div className='flex flex-row w-full justify-between'>
+          <div className='pb-5 flex flex-row w-full h-[10%] justify-between'>
             <input
-              className='text-base text-black w-[100%]'
+              className='p-2 text-base text-black w-[100%] rounded-xl'
               type="text"
               value={inputValue}
               onChange={handleInputChange}
@@ -53,7 +54,12 @@ function App() {
               }}
               placeholder="Digite o nome do álbum..."
             />
-            <button className='text-base text-black bg-white' onClick={handleButtonClick}>Buscar Álbuns</button> {/* Botão para buscar álbuns */}
+            <button 
+              className='w-[15%] text-base text-black bg-white rounded-xl p-2' 
+              onClick={handleButtonClick}
+            >  
+              <img className="w-full h-full object-contain" src={Lupa}/>
+              </button> {/* Botão para buscar álbuns */}
           </div>
           <div className="h-96 w-full overflow-auto border border-gray-300">
             {albums.length > 0 ? (
