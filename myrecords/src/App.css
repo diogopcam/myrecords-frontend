@@ -1,4 +1,3 @@
-/* App.css */
 .FullScreen{
   width: 100%;
   height: 100vh;
@@ -17,37 +16,4 @@
   background-repeat: no-repeat;  /* Evita repetição da imagem */
   height: 100vh; /* Altura da div, exemplo com 100% da altura da viewport */
   width: 100%; /* Largura da div, 100% da largura do container */
-}
-
-/* .Menu {
-  background-color: black;
-  color: #f0f0f0;
-  width: 45%;
-} */
-
-.MenuContent {
-  padding-left: 5px;
-}
-
-.album- {
-  width: 170px;
-  height: 150px;
-  border: 2px solid black;
-  margin: 10px;
-  display: inline-block;
-  background-color: #f0f0f0;
-  position: relative;
-  transform: perspective(600px) rotateX(10deg); /* Inclinação para frente */
-  transition: transform 0.3s ease-in-out;
-}
-
-/* .album-container{
-  padding-top: 40px;
-  width: 85%;
-} */
-
-.imagem-da-moldura {
-  width: 100%;  /* Faz a imagem preencher a largura da moldura */
-  height: 100%; /* Faz a imagem preencher a altura da moldura */
-  object-fit: cover; /* Garante que a imagem cubra a área sem distorcer */
 }

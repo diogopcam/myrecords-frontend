@@ -34,7 +34,7 @@ function App() {
   };
 
   return (
-    <div className='FullScreen'>
+    <div className="w-full h-screen flex flex-row">
       <div className='bg-black w-[45%] p-6 flex flex-col justify-between'>
         <div className='text-4xl text-white'>
           <h1 className='pb-5'>Bem vindo ao myrecords</h1>
@@ -79,7 +79,7 @@ function App() {
           </div>
         </div>
       </div>
-      <div className="App">
+      <div className="flex justify-center items-center bg-cover bg-center bg-no-repeat h-screen w-full" style={{backgroundImage: `url('https://i.imgur.com/IC18bJ6.jpg')`}}>
         <AlbumCollage numberPositions={15}/>
       </div>
     </div>
