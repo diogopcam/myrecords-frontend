@@ -47,7 +47,7 @@ function App() {
               type="text"
               value={inputValue}
               onChange={handleInputChange}
-              onKeyPress={(event) => {
+              onKeyDown={(event) => {
                 if (event.key === 'Enter') {
                   fetchAlbums(); // Busca álbuns quando a tecla Enter é pressionada
                 }
@@ -63,9 +63,8 @@ function App() {
           </div>
           <div className="h-96 w-full overflow-auto border border-gray-300">
             {albums.length > 0 ? (
-              albums.map((album, index) => (
+              albums.map((album) => (
                 <AlbumFrame
-                  key={index}
                   imageUrl={album.albumCover}
                   albumName={album.albumName}
                   artistName={album.artistName}

@@ -45,7 +45,7 @@ function AlbumFrame({ imageUrl, width, height, onDrop, albumName, artistName, al
           </div>
         </div>
       ) : (
-        <div className="text-gray-500 text-center flex items-center justify-center h-full">Add your album here</div>
+        <div className="text-gray-500 text-xs text-center flex items-center justify-center h-full">Add your album here</div>
       )}
     </div>
   );
