@@ -1,41 +1,69 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import AlbumFrame from './components/AlbumFrame';
 import AlbumCollage from './components/AlbumCollage';
-import Lupa from './styles/icons/lupa.png'
+import Lupa from './styles/icons/lupa.png';
 import './App.css';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 function App() {
-  const [inputValue, setInputValue] = useState(''); // Estado para o valor do input
-  const [albums, setAlbums] = useState([]); // Estado para armazenar os álbuns
-
+  const [inputValue, setInputValue] = useState('');
+  const [albums, setAlbums] = useState([]);
+  const divRef = useRef();
+  
   const handleInputChange = (event) => {
-    setInputValue(event.target.value); // Atualiza o valor do input
+    setInputValue(event.target.value);
   };
 
   const fetchAlbums = async () => {
-    const query = inputValue; // Obtém a string de busca do estado inputValue
-    const url = 'http://127.0.0.1:5000/api/get_album_covers'; // URL do seu backend
+    const query = inputValue;
+    const url = 'http://127.0.0.1:5000/api/get_album_covers';
   
     try {
-      const response = await axios.get(url, {
-        params: { query: query }
-      });
-      console.log("Retorno da API:", response.data); // Imprime o retorno da API
-      setAlbums(response.data); // Atualiza o estado com as capas dos álbuns encontrados
+      const response = await axios.get(url, { params: { query: query } });
+      console.log("Retorno da API:", response.data);
+      setAlbums(response.data);
     } catch (error) {
       console.error('Error fetching albums from backend:', error);
     }
   };
 
   const handleButtonClick = () => {
-    fetchAlbums(); // Chama a função para buscar álbuns
+    fetchAlbums();
     console.log(albums);
+  };
+
+  // Substituímos o método downloadCollage com jsPDF e html2canvas
+  const downloadCollage = () => {
+    const element = divRef.current;
+
+     // Captura a div usando html2canvas
+  html2canvas(element, { scale: 2, useCORS: true }).then((canvas) => {
+    const imgData = canvas.toDataURL('image/png');
+
+    // Calcula a largura e altura da div em mm
+    const widthInMm = element.offsetWidth / 3.779527; // Converte pixels para mm
+    const heightInMm = element.offsetHeight / 3.779527; // Converte pixels para mm
+
+    // Cria o PDF na orientação landscape
+    const pdf = new jsPDF('landscape', 'mm', [widthInMm, heightInMm]);
+
+    // Adiciona a imagem ao PDF
+    pdf.addImage(imgData, 'PNG', 0, 0, widthInMm, heightInMm);
+    
+    // Salva o PDF
+    pdf.save('album-collage.pdf');
+  });
+  };
+
+  const handleDownloadButton = () => {
+    downloadCollage();
   };
 
   return (
     <div className="w-full h-screen flex flex-row">
-      <div className='bg-black w-[45%] p-6 flex flex-col justify-between'>
+      <div className='bg-black w-[45%] p-4 flex flex-col justify-between'>
         <div className='text-4xl text-white'>
           <h1 className='pb-5'>Bem vindo ao myrecords</h1>
           <p className='pb-5 text-base'>
@@ -43,28 +71,29 @@ function App() {
           </p>
           <div className='pb-5 flex flex-row w-full h-[10%] justify-between'>
             <input
-              className='p-2 text-base text-black w-[100%] rounded-xl'
+              className='p-2 text-base text-black w-[100%]'
               type="text"
               value={inputValue}
               onChange={handleInputChange}
               onKeyDown={(event) => {
                 if (event.key === 'Enter') {
-                  fetchAlbums(); // Busca álbuns quando a tecla Enter é pressionada
+                  fetchAlbums();
                 }
               }}
               placeholder="Digite o nome do álbum..."
             />
             <button 
-              className='w-[15%] text-base text-black bg-white rounded-xl p-2' 
+              className='w-[15%] text-base text-black bg-white p-2' 
               onClick={handleButtonClick}
             >  
               <img className="w-full h-full object-contain" src={Lupa}/>
-              </button> {/* Botão para buscar álbuns */}
+              </button>
           </div>
           <div className="h-96 w-full overflow-auto border border-gray-300">
             {albums.length > 0 ? (
-              albums.map((album) => (
+              albums.map((album, index) => (
                 <AlbumFrame
+                  key={index}
                   imageUrl={album.albumCover}
                   albumName={album.albumName}
                   artistName={album.artistName}
@@ -74,12 +103,19 @@ function App() {
                 />
               ))
             ) : (
-              <p className='text-base'> No albums found. Please search again.</p>
+              <p className='text-base'>No albums found. Please search again.</p>
             )}
           </div>
+          <button 
+            className='w-[15%] text-black text-base bg-white'
+            onClick={handleDownloadButton}>
+              Baixar
+          </button>
         </div>
       </div>
-      <div className="flex justify-center items-center bg-cover bg-center bg-no-repeat h-screen w-full" style={{backgroundImage: `url('https://i.imgur.com/IC18bJ6.jpg')`}}>
+      <div 
+        className="flex justify-center items-center bg-cover bg-center bg-no-repeat h-screen w-full" style={{backgroundImage: `url('https://i.imgur.com/IC18bJ6.jpg')`}}
+        ref={divRef}>
         <AlbumCollage numberPositions={15}/>
       </div>
     </div>
