@@ -1,17 +1,25 @@
+// Bibliotecas 
 import React, { useRef, useState } from 'react';
 import axios from 'axios';
-import AlbumFrame from './components/AlbumFrame';
-import AlbumCollage from './components/AlbumCollage';
-import Lupa from './styles/icons/lupa.png';
-import './App.css';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+
+// Telas
+import AlbumFrame from './components/AlbumFrame';
+import AlbumCollage from './components/AlbumCollage';
+// Componentes de imagem
+import Lupa from './styles/icons/lupa.png';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 function App() {
   const [inputValue, setInputValue] = useState('');
   const [albums, setAlbums] = useState([]);
+  const [selectedOption, setSelectedOption] = useState('');
   const divRef = useRef();
-  
+
+  // Método que lida com a mudança de texto no input de pesquisa
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -19,7 +27,6 @@ function App() {
   const fetchAlbums = async () => {
     const query = inputValue;
     const url = 'http://127.0.0.1:5000/api/get_album_covers';
-  
     try {
       const response = await axios.get(url, { params: { query: query } });
       console.log("Retorno da API:", response.data);
@@ -29,34 +36,30 @@ function App() {
     }
   };
 
+  // Método que realiza a chamada para a requisição puxando todos os álbuns de acordo com a pesquisa
   const handleButtonClick = () => {
     fetchAlbums();
     console.log(albums);
   };
 
-  // Substituímos o método downloadCollage com jsPDF e html2canvas
+  // Método que realiza o download da colagem
   const downloadCollage = () => {
     const element = divRef.current;
 
-     // Captura a div usando html2canvas
-  html2canvas(element, { scale: 2, useCORS: true }).then((canvas) => {
-    const imgData = canvas.toDataURL('image/png');
-
-    // Calcula a largura e altura da div em mm
-    const widthInMm = element.offsetWidth / 3.779527; // Converte pixels para mm
-    const heightInMm = element.offsetHeight / 3.779527; // Converte pixels para mm
-
-    // Cria o PDF na orientação landscape
-    const pdf = new jsPDF('landscape', 'mm', [widthInMm, heightInMm]);
-
-    // Adiciona a imagem ao PDF
-    pdf.addImage(imgData, 'PNG', 0, 0, widthInMm, heightInMm);
-    
-    // Salva o PDF
-    pdf.save('album-collage.pdf');
-  });
+    // Captura a div usando html2canvas
+    html2canvas(element, { scale: 2, useCORS: true }).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      // Calcula a largura e altura da div em mm
+      const widthInMm = element.offsetWidth / 3.779527; // Converte pixels para mm
+      const heightInMm = element.offsetHeight / 3.779527; // Converte pixels para mm
+      // Cria o PDF na orientação landscape
+      const pdf = new jsPDF('landscape', 'mm', [widthInMm, heightInMm]);
+      pdf.addImage(imgData, 'PNG', 0, 0, widthInMm, heightInMm);
+      pdf.save('album-collage.pdf');
+    });
   };
 
+  /// Função chamada no clique do botão de baixar a colagem
   const handleDownloadButton = () => {
     downloadCollage();
   };
@@ -66,7 +69,7 @@ function App() {
       <div className='bg-black w-[45%] p-4 flex flex-col justify-between'>
         <div className='font-afacad text-4xl text-white'>
           <h1 className='pb-5'>Myrecords</h1>
-          <p className='pb-5 text-base'>
+          <p className='pb-5 font-abel font-thin text-sm'>
             Aqui você pode criar e compartilhar uma colagem dos seus álbuns favoritos.
           </p>
           <div className='pb-5 flex flex-row w-full h-[10%] justify-between'>
@@ -80,14 +83,12 @@ function App() {
                   fetchAlbums();
                 }
               }}
-              placeholder="Digite o nome do álbum..."
-            />
+              placeholder="Digite o nome do álbum..." />
             <button 
               className='w-[15%] text-base text-black bg-white p-2' 
-              onClick={handleButtonClick}
-            >  
-              <img className="w-full h-full object-contain" src={Lupa}/>
-              </button>
+              onClick={handleButtonClick}>  
+              <img className="w-full h-full object-contain" src={Lupa} />
+            </button>
           </div>
           <div className="h-96 w-full overflow-auto border border-gray-300">
             {albums.length > 0 ? (
@@ -107,16 +108,16 @@ function App() {
             )}
           </div>
           <button 
-            className='w-[15%] text-black text-base bg-white'
+            className='w-[100%] p-1 text-black text-base bg-white'
             onClick={handleDownloadButton}>
-              Baixar
+            Baixar
           </button>
         </div>
       </div>
       <div 
-        className="flex justify-center items-center bg-cover bg-center bg-no-repeat h-screen w-full" style={{backgroundImage: `url('https://i.imgur.com/IC18bJ6.jpg')`}}
+        className="flex justify-center items-center bg-cover bg-center bg-no-repeat h-screen w-full" style={{ backgroundImage: `url('https://i.imgur.com/IC18bJ6.jpg')` }}
         ref={divRef}>
-        <AlbumCollage numberPositions={15}/>
+        <AlbumCollage numberPositions={15} />
       </div>
     </div>
   );

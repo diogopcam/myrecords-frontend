@@ -38,10 +38,10 @@ function AlbumFrame({ imageUrl, width, height, onDrop, albumName, artistName, al
             alt="Album Cover" 
             className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-50" 
           />
-          <div className="absolute inset-0 flex flex-col overflow-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-60 text-white text-xs p-1">
-            <p>Album name: {albumName}</p>
-            <p>Artist: {artistName}</p>
-            <p>Album Type: {albumType}</p>
+          <div className="text-lg absolute inset-0 flex flex-col overflow-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-60 text-white text-xs p-1">
+            <p>{albumName}</p>
+            <p className="text-sm">{artistName}</p>
+            {/* <p className="text-sm">{albumType}</p> */}
           </div>
         </div>
       ) : (
