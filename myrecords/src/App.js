@@ -64,8 +64,8 @@ function App() {
   return (
     <div className="w-full h-screen flex flex-row">
       <div className='bg-black w-[45%] p-4 flex flex-col justify-between'>
-        <div className='text-4xl text-white'>
-          <h1 className='pb-5'>Bem vindo ao myrecords</h1>
+        <div className='font-afacad text-4xl text-white'>
+          <h1 className='pb-5'>Myrecords</h1>
           <p className='pb-5 text-base'>
             Aqui você pode criar e compartilhar uma colagem dos seus álbuns favoritos.
           </p>
