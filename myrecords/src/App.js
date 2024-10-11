@@ -3,7 +3,6 @@ import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-
 // Telas
 import AlbumFrame from './components/AlbumFrame';
 import AlbumCollage from './components/AlbumCollage';
@@ -65,14 +64,14 @@ function App() {
   };
 
   return (
-    <div className="w-full h-screen flex flex-row">
+    <div className="w-full h-screen flex flex-row justify-center">
       <div className='bg-black w-[45%] p-4 flex flex-col justify-between'>
         <div className='font-afacad text-4xl text-white'>
           <h1 className='pb-5'>Myrecords</h1>
           <p className='pb-5 font-abel font-thin text-sm'>
             Aqui você pode criar e compartilhar uma colagem dos seus álbuns favoritos.
           </p>
-          <div className='pb-5 flex flex-row w-full h-[10%] justify-between'>
+          <div className='pb-5 flex flex-row w-full h-[10%] justify-center'>
             <input
               className='p-2 text-base text-black w-[100%]'
               type="text"
@@ -115,7 +114,7 @@ function App() {
         </div>
       </div>
       <div 
-        className="flex justify-center items-center bg-cover bg-center bg-no-repeat h-screen w-full" style={{ backgroundImage: `url('https://i.imgur.com/IC18bJ6.jpg')` }}
+        className="flex justify-center items-center bg-black bg-cover bg-center bg-no-repeat h-screen w-full"
         ref={divRef}>
         <AlbumCollage numberPositions={15} />
       </div>

@@ -1,4 +1,6 @@
 import React from 'react';
+import {icons} from 'react-icons';
+import { FaPlayCircle } from 'react-icons/fa';
 
 function AlbumFrame({ imageUrl, width, height, onDrop, albumName, artistName, albumType }) {
 
@@ -41,6 +43,7 @@ function AlbumFrame({ imageUrl, width, height, onDrop, albumName, artistName, al
           <div className="text-lg absolute inset-0 flex flex-col overflow-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-60 text-white text-xs p-1">
             <p>{albumName}</p>
             <p className="text-sm">{artistName}</p>
+            <FaPlayCircle size={32}/>
             {/* <p className="text-sm">{albumType}</p> */}
           </div>
         </div>
