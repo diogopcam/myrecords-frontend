@@ -65,7 +65,7 @@ function App() {
 
   return (
     <div className="w-full h-screen flex flex-row justify-center">
-      <div className='bg-black w-[45%] p-4 flex flex-col justify-between'>
+      <div className='bg-black w-[45%] p-4 flex flex-col justify-center align-center'>
         <div className='font-afacad text-4xl text-white'>
           <h1 className='pb-5'>Myrecords</h1>
           <p className='pb-5 font-abel font-thin text-sm'>
@@ -114,7 +114,7 @@ function App() {
         </div>
       </div>
       <div 
-        className="flex justify-center items-center bg-black bg-cover bg-center bg-no-repeat h-screen w-full"
+        className="p-4 flex justify-center items-center bg-black w-full"
         ref={divRef}>
         <AlbumCollage numberPositions={15} />
       </div>
