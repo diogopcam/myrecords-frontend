@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaPlayCircle } from 'react-icons/fa';
 
-function AlbumFrame({ imageUrl, width, height, onDrop, albumName, artistName, albumType }) {
+function AlbumFrame({ imageUrl, albumUri, width, height, onDrop, albumName, artistName, albumType }) {
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -16,6 +16,7 @@ function AlbumFrame({ imageUrl, width, height, onDrop, albumName, artistName, al
   const handleDragStart = (e) => {
     const album = JSON.stringify({
       imageUrl,
+      albumUri,
       albumName,
       artistName,
       albumType
@@ -24,7 +25,7 @@ function AlbumFrame({ imageUrl, width, height, onDrop, albumName, artistName, al
   };
 
   const handlePlayClick = () => {
-    
+    console.log(albumUri);
   }
 
   return (
@@ -49,7 +50,9 @@ function AlbumFrame({ imageUrl, width, height, onDrop, albumName, artistName, al
               <p className="text-sm">{artistName}</p>
             </div>
             <button onClick={handlePlayClick}>
-              <a href='https://www.youtube.com/watch?v=V6LJmCIL4KI' target="_blank" rel="noreferrer" > <FaPlayCircle size={32}/> </a>
+              <a href={`${albumUri}`} target="_blank" rel="noreferrer"> 
+               <FaPlayCircle size={32}/> 
+              </a>
             </button>
             {/* <p className="text-sm">{albumType}</p> */}
           </div>

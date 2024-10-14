@@ -8,14 +8,10 @@ import AlbumFrame from './components/AlbumFrame';
 import AlbumCollage from './components/AlbumCollage';
 // Componentes de imagem
 import Lupa from './styles/icons/lupa.png';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 
 function App() {
   const [inputValue, setInputValue] = useState('');
   const [albums, setAlbums] = useState([]);
-  const [selectedOption, setSelectedOption] = useState('');
   const divRef = useRef();
 
   // Método que lida com a mudança de texto no input de pesquisa
@@ -95,6 +91,7 @@ function App() {
                 <AlbumFrame
                   key={index}
                   imageUrl={album.albumCover}
+                  albumUri={album.albumUri}
                   albumName={album.albumName}
                   artistName={album.artistName}
                   albumType={album.albumType}

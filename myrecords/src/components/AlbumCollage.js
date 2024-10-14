@@ -11,6 +11,7 @@ function AlbumCollage({ numberPositions }) {
   const [positions, setPositions] = useState(
     Array(numberPositions).fill({
       imageUrl: null,
+      albumUri: '',
       albumName: '',
       artistName: '',
       albumType: ''
@@ -30,6 +31,7 @@ function AlbumCollage({ numberPositions }) {
         <AlbumFrame
           key={index}
           imageUrl={position.imageUrl}
+          albumUri={position.albumUri}
           albumName={position.albumName}
           artistName={position.artistName}
           albumType={position.albumType}
