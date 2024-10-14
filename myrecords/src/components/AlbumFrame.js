@@ -1,5 +1,4 @@
 import React from 'react';
-import {icons} from 'react-icons';
 import { FaPlayCircle } from 'react-icons/fa';
 
 function AlbumFrame({ imageUrl, width, height, onDrop, albumName, artistName, albumType }) {
@@ -50,7 +49,7 @@ function AlbumFrame({ imageUrl, width, height, onDrop, albumName, artistName, al
               <p className="text-sm">{artistName}</p>
             </div>
             <button onClick={handlePlayClick}>
-              <FaPlayCircle size={32}/>
+              <a href='https://www.youtube.com/watch?v=V6LJmCIL4KI' target="_blank" rel="noreferrer" > <FaPlayCircle size={32}/> </a>
             </button>
             {/* <p className="text-sm">{albumType}</p> */}
           </div>
