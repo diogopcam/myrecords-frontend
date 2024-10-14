@@ -24,6 +24,10 @@ function AlbumFrame({ imageUrl, width, height, onDrop, albumName, artistName, al
     e.dataTransfer.setData("text/plain", album);
   };
 
+  const handlePlayClick = () => {
+    
+  }
+
   return (
     <div
       draggable={imageUrl !== null}
@@ -40,12 +44,12 @@ function AlbumFrame({ imageUrl, width, height, onDrop, albumName, artistName, al
             alt="Album Cover" 
             className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-50" 
           />
-          <div className="text-lg absolute inset-0 flex flex-col overflow-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-60 text-white text-xs p-2 justify-between">
+          <div className="absolute inset-0 flex flex-col overflow-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-60 text-white text-xs p-2 justify-between">
             <div>
-              <p className="text-sm">{albumName}</p>
-              <p>{artistName}</p>
+              <p className="text-2xl">{albumName}</p>
+              <p className="text-sm">{artistName}</p>
             </div>
-            <button>
+            <button onClick={handlePlayClick}>
               <FaPlayCircle size={32}/>
             </button>
             {/* <p className="text-sm">{albumType}</p> */}
