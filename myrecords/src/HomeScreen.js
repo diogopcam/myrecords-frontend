@@ -3,16 +3,20 @@ import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 // Telas
 import AlbumFrame from './components/AlbumFrame';
 import AlbumCollage from './components/AlbumCollage';
+
 // Componentes de imagem
 import Lupa from './styles/icons/lupa.png';
+import {FaChevronDown, FaPlay}  from 'react-icons/fa';
 
-function App() {
+function HomeScreen() {
   const [inputValue, setInputValue] = useState('');
   const [albums, setAlbums] = useState([]);
   const divRef = useRef();
+  const navigate = useNavigate();
 
   // Método que lida com a mudança de texto no input de pesquisa
   const handleInputChange = (event) => {
@@ -57,6 +61,11 @@ function App() {
   /// Função chamada no clique do botão de baixar a colagem
   const handleDownloadButton = () => {
     downloadCollage();
+  };
+
+  // Função para redirecionar ao clicar no botão
+  const startSlideShow = () => {
+    navigate('/slide-show'); // Navega para a página 'about'
   };
 
   return (
@@ -111,12 +120,17 @@ function App() {
         </div>
       </div>
       <div 
-        className="p-4 flex justify-center items-center bg-black w-full"
+        className="p-4 flex flex-col justify-center items-center bg-black w-full"
         ref={divRef}>
+        <div className='flex flex-row gap-10 items-end'> 
+          <button onClick={startSlideShow}>
+            <FaChevronDown color='white'/>
+          </button>
+        </div>
         <AlbumCollage numberPositions={15} />
       </div>
     </div>
   );
 }
 
-export default App;
+export default HomeScreen;
