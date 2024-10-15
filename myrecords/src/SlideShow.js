@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { FaPlay, FaPause, FaForward, FaBackward } from 'react-icons/fa';
 
 function SlideShow() {
-  return (
+  const location = useLocation();
+  
+  // Recupere o array ou qualquer parâmetro que foi passado
+  const receivedData = location.state?.albums || 'No data received';
 
+  // Use efeito para logar o parâmetro recebido quando o componente é montado
+  useEffect(() => {
+    console.log('Received data:', receivedData);
+  }, [receivedData]);
+
+  return (
     <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-screen flex flex-col justify-center items-center">
       {/* Título */}
       <h1 className="text-5xl text-white font-bold mb-8">Random SlideShow</h1>
@@ -20,6 +30,11 @@ function SlideShow() {
           alt="Random"
           className="w-full h-full object-cover rounded-lg"
         />
+      </div>
+
+      {/* Exibir o parâmetro recebido */}
+      <div className="text-white text-lg mb-8">
+        <strong>Received Data: </strong>{JSON.stringify(receivedData)}
       </div>
 
       {/* Controle de Slideshow */}

@@ -65,7 +65,7 @@ function HomeScreen() {
 
   // Função para redirecionar ao clicar no botão
   const startSlideShow = () => {
-    navigate('/slide-show'); // Navega para a página 'about'
+    navigate('/slide-show', {state: {albums: albums}}); // Navega para a página 'about'
   };
 
   return (
