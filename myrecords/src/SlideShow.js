@@ -5,37 +5,49 @@ import { FaPlay, FaPause, FaForward, FaBackward } from 'react-icons/fa';
 function SlideShow() {
   const location = useLocation();
   
-  // Recupere o array ou qualquer parâmetro que foi passado
-  const receivedData = location.state?.albums || 'No data received';
+  // Recupere o array de álbuns que foi passado como parâmetro
+  const albums = location.state?.albums || [];
 
-  // Use efeito para logar o parâmetro recebido quando o componente é montado
+  // Use efeito para logar os dados recebidos quando o componente for montado
   useEffect(() => {
-    console.log('Received data:', receivedData);
-  }, [receivedData]);
+    console.log('Received albums:', albums);
+  }, [albums]);
 
   return (
     <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-screen flex flex-col justify-center items-center">
       {/* Título */}
-      <h1 className="text-5xl text-white font-bold mb-8">Random SlideShow</h1>
+      <h1 className="text-5xl text-white font-bold mb-8">Album SlideShow</h1>
 
-      {/* Parágrafo */}
-      <p className="text-lg text-white mb-8 text-center w-[70%]">
-        Welcome to the random slideshow page. This is a demo page with random elements, styles, and layout just to test the navigation.
-      </p>
-
-      {/* Imagem Aleatória */}
-      <div className="bg-white shadow-lg p-4 rounded-lg mb-8">
-        <img
-          src="https://source.unsplash.com/random/400x300"
-          alt="Random"
-          className="w-full h-full object-cover rounded-lg"
-        />
-      </div>
-
-      {/* Exibir o parâmetro recebido */}
-      <div className="text-white text-lg mb-8">
-        <strong>Received Data: </strong>{JSON.stringify(receivedData)}
-      </div>
+      {/* Se houver álbuns, mostre-os, caso contrário, mostre uma mensagem */}
+      {albums.length > 0 ? (
+        albums.map((album, index) => (
+          <div key={index} className="bg-white shadow-lg p-4 rounded-lg mb-8 w-[400px]">
+            {/* Imagem do álbum */}
+            <img
+              src={album.imageUrl}
+              alt={album.albumName}
+              className="w-full h-full object-cover rounded-lg mb-4"
+            />
+            
+            {/* Informações do álbum */}
+            <h2 className="text-xl font-bold text-gray-800">{album.albumName}</h2>
+            <p className="text-sm text-gray-600 mb-2">Artist: {album.artistName}</p>
+            <p className="text-sm text-gray-600 mb-2">Album Type: {album.albumType}</p>
+            
+            {/* Link para abrir o álbum */}
+            <a
+              href={album.albumUri}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 underline text-sm"
+            >
+              Listen to Album
+            </a>
+          </div>
+        ))
+      ) : (
+        <p className="text-lg text-white">No albums available.</p>
+      )}
 
       {/* Controle de Slideshow */}
       <div className="flex justify-center gap-4 text-2xl text-white mb-8">
@@ -50,16 +62,6 @@ function SlideShow() {
         </button>
         <button className="hover:text-yellow-400">
           <FaForward />
-        </button>
-      </div>
-
-      {/* Botões Aleatórios */}
-      <div className="flex gap-4">
-        <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">
-          Random Button 1
-        </button>
-        <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
-          Random Button 2
         </button>
       </div>
     </div>

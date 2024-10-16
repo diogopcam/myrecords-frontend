@@ -3,11 +3,9 @@ import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as useNavigate } from 'react-router-dom';
 // Telas
 import AlbumFrame from './components/AlbumFrame';
-import AlbumCollage from './components/AlbumCollage';
-
 // Componentes de imagem
 import Lupa from './styles/icons/lupa.png';
 import {FaChevronDown, FaPlay}  from 'react-icons/fa';
@@ -17,6 +15,24 @@ function HomeScreen() {
   const [albums, setAlbums] = useState([]);
   const divRef = useRef();
   const navigate = useNavigate();
+
+  // Inicializa as posições com o número especificado de molduras (sem imagem)
+  const [positions, setPositions] = useState(
+    Array(15).fill({
+      imageUrl: null,
+      albumUri: '',
+      albumName: '',
+      artistName: '',
+      albumType: ''
+    })
+  );
+
+  // Função para atualizar o estado ao soltar uma imagem
+  const handleDrop = (index, album) => {
+    const newPositions = [...positions]; // Copia o estado atual
+    newPositions[index] = album; // Atualiza a posição com o novo objeto de álbum
+    setPositions(newPositions); // Atualiza o estado
+  };
 
   // Método que lida com a mudança de texto no input de pesquisa
   const handleInputChange = (event) => {
@@ -65,7 +81,7 @@ function HomeScreen() {
 
   // Função para redirecionar ao clicar no botão
   const startSlideShow = () => {
-    navigate('/slide-show', {state: {albums: albums}}); // Navega para a página 'about'
+    navigate('/slide-show', {state: {albums: positions}}); // Navega para a página 'about'
   };
 
   return (
@@ -127,7 +143,24 @@ function HomeScreen() {
             <FaChevronDown color='white'/>
           </button>
         </div>
-        <AlbumCollage numberPositions={15} />
+        {/* <AlbumCollage numberPositions={15} /> */}
+        <div> 
+          <div className="grid grid-cols-5 gap-4 overflow-auto p-6">
+        {positions.map((position, index) => (
+          <AlbumFrame
+            key={index}
+            imageUrl={position.imageUrl}
+            albumUri={position.albumUri}
+            albumName={position.albumName}
+            artistName={position.artistName}
+            albumType={position.albumType}
+            width={150}
+            height={150}
+            onDrop={(album) => handleDrop(index, album)} // Manipula o drop para cada moldura
+          />
+        ))}
+      </div>
+        </div>
       </div>
     </div>
   );
