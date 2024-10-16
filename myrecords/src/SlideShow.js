@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { FaPlay, FaPause, FaForward, FaBackward} from 'react-icons/fa';
+import { FaPlay, FaPause, FaForward, FaBackward } from 'react-icons/fa';
 
 function SlideShow() {
   const location = useLocation();
@@ -26,9 +26,6 @@ function SlideShow() {
     );
   };
 
-  const togglePlayPause = () => {
-    setIsPlaying(!isPlaying);
-  };
 
   useEffect(() => {
     let interval;
@@ -41,43 +38,51 @@ function SlideShow() {
   }, [isPlaying, currentIndex]);
 
   return (
-    <div className="p-6 bg-black h-screen flex flex-col items-center">
-      <p className="text-5xl text-white mb-8">{albums[currentIndex].albumName}</p>
-      {albums.length > 0 ? (
-        <div className="bg-black shadow-lg border border-white mb-8 h-[60%] w-[35%]">
-          <div>
-          <img
-            src={albums[currentIndex].imageUrl}
-            alt={albums[currentIndex].albumName}
-            className="w-full h-full mb-4 text-white"
-          />
+    // Tela Inteira
+    <div className="overflow-hidden p-6 bg-black h-screen flex flex-col items-center font-afacad">
+      {/* Criar uma div aqui para encapsular todas as informacoes do album */}
+      <div className="h-[100%]">
+        {/* Título do álbum */}
+        <p className="text-5xl text-white text-center">{albums[currentIndex].albumName}</p>
+        {albums.length > 0 ? (
+          <div className="h-[100%] pt-6"> {/* Removido o comentário */}
+            {/* Imagem do álbum */}
+            <div className='h-[65%] m-6'>
+              <img
+                src={albums[currentIndex].imageUrl}
+                alt={albums[currentIndex].albumName}
+                className="w-full h-full mb-4 text-white"
+              />
+            </div>
+            {/* Informações textuais do álbum */}
+            <div className='flex flex-col text-xl text-gray-600 m-6 text-white text-center'>
+              <p>
+                {albums[currentIndex].artistName}
+              </p>
+            </div>
+            <div className="flex justify-center gap-4 text-4xl text-white">
+              <button onClick={prevAlbum} className="hover:text-yellow-500">
+                <FaBackward />
+              </button>
+              <button className="hover:text-yellow-500">
+                <a
+                  href={albums[currentIndex].albumUri}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 text-white"
+                >
+                  <FaPlay/>
+                </a>
+              </button>
+              <button onClick={nextAlbum} className="hover:text-yellow-500">
+                <FaForward />
+              </button>
+            </div>
           </div>
-          <p className="flex flex-col text-sm text-gray-600 mb-2 text-white text-center">
-            {albums[currentIndex].artistName}
-            <a
-            href={albums[currentIndex].albumUri}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-500 underline text-sm text-white"
-          >
-            Listen to Album
-          </a>
-          </p>
-        <div className="flex justify-center gap-4 text-4xl text-white mb-8">
-          <button onClick={prevAlbum} className="hover:text-yellow-500">
-            <FaBackward />
-          </button>
-          <button onClick={togglePlayPause} className="hover:text-yellow-500">
-            {isPlaying ? <FaPause /> : <FaPlay />}
-          </button>
-          <button onClick={nextAlbum} className="hover:text-yellow-500">
-            <FaForward />
-          </button>
-        </div>
-        </div>
-      ) : (
-        <p className="text-lg text-white">No albums available.</p>
-      )}
+        ) : (
+          <p className="text-lg text-white">No albums available.</p>
+        )}
+      </div>
     </div>
   );
 }
