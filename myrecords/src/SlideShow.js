@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { FaPlay, FaPause, FaForward, FaBackward, FaArrowRight } from 'react-icons/fa';
+import { FaPlay, FaPause, FaForward, FaBackward} from 'react-icons/fa';
 
 function SlideShow() {
   const location = useLocation();
@@ -41,15 +41,17 @@ function SlideShow() {
   }, [isPlaying, currentIndex]);
 
   return (
-    <div className="bg-black h-screen w-[100%] flex flex-col justify-center items-center">
-      <h1 className="text-5xl text-white font-bold mb-8">{albums[currentIndex].albumName}</h1>
+    <div className="p-6 bg-black h-screen flex flex-col items-center">
+      <p className="text-5xl text-white mb-8">{albums[currentIndex].albumName}</p>
       {albums.length > 0 ? (
         <div className="bg-black shadow-lg border border-white mb-8 h-[60%] w-[35%]">
+          <div>
           <img
             src={albums[currentIndex].imageUrl}
             alt={albums[currentIndex].albumName}
             className="w-full h-full mb-4 text-white"
           />
+          </div>
           <p className="flex flex-col text-sm text-gray-600 mb-2 text-white text-center">
             {albums[currentIndex].artistName}
             <a
@@ -61,17 +63,17 @@ function SlideShow() {
             Listen to Album
           </a>
           </p>
-          <div className="flex justify-center gap-4 text-4xl text-white mb-8">
-        <button onClick={prevAlbum} className="hover:text-yellow-500">
-          <FaBackward />
-        </button>
-        <button onClick={togglePlayPause} className="hover:text-yellow-500">
-          {isPlaying ? <FaPause /> : <FaPlay />}
-        </button>
-        <button onClick={nextAlbum} className="hover:text-yellow-500">
-          <FaForward />
-        </button>
-      </div>
+        <div className="flex justify-center gap-4 text-4xl text-white mb-8">
+          <button onClick={prevAlbum} className="hover:text-yellow-500">
+            <FaBackward />
+          </button>
+          <button onClick={togglePlayPause} className="hover:text-yellow-500">
+            {isPlaying ? <FaPause /> : <FaPlay />}
+          </button>
+          <button onClick={nextAlbum} className="hover:text-yellow-500">
+            <FaForward />
+          </button>
+        </div>
         </div>
       ) : (
         <p className="text-lg text-white">No albums available.</p>
