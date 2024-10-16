@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { FaPlay, FaPause, FaForward, FaBackward } from 'react-icons/fa';
+import { FaPlay, FaPause, FaForward, FaBackward, FaArrowRight } from 'react-icons/fa';
 
 function SlideShow() {
   const location = useLocation();
@@ -42,21 +42,17 @@ function SlideShow() {
 
   return (
     <div className="bg-black h-screen w-[100%] flex flex-col justify-center items-center">
-      <h1 className="text-5xl text-white font-bold mb-8">Album SlideShow</h1>
+      <h1 className="text-5xl text-white font-bold mb-8">{albums[currentIndex].albumName}</h1>
       {albums.length > 0 ? (
-        <div className="bg-black shadow-lg border border-white mb-8 h-[50%] w-[40%]">
+        <div className="bg-black shadow-lg border border-white mb-8 h-[60%] w-[35%]">
           <img
             src={albums[currentIndex].imageUrl}
             alt={albums[currentIndex].albumName}
-            className="w-full h-full object-cover mb-4 text-white"
+            className="w-full h-full mb-4 text-white"
           />
-          <h2 className="text-xl font-bold text-white">
-            {albums[currentIndex].albumName}
-          </h2>
-          <p className="text-sm text-gray-600 mb-2 text-white">
-            Artist: {albums[currentIndex].artistName}
-          </p>
-          <a
+          <p className="flex flex-col text-sm text-gray-600 mb-2 text-white text-center">
+            {albums[currentIndex].artistName}
+            <a
             href={albums[currentIndex].albumUri}
             target="_blank"
             rel="noopener noreferrer"
@@ -64,13 +60,8 @@ function SlideShow() {
           >
             Listen to Album
           </a>
-        </div>
-      ) : (
-        <p className="text-lg text-white">No albums available.</p>
-      )}
-
-      {/* Ajuste das classes de estilo para os botões */}
-      <div className="flex justify-center gap-4 text-4xl text-white mb-8">
+          </p>
+          <div className="flex justify-center gap-4 text-4xl text-white mb-8">
         <button onClick={prevAlbum} className="hover:text-yellow-500">
           <FaBackward />
         </button>
@@ -81,6 +72,10 @@ function SlideShow() {
           <FaForward />
         </button>
       </div>
+        </div>
+      ) : (
+        <p className="text-lg text-white">No albums available.</p>
+      )}
     </div>
   );
 }
