@@ -8,9 +8,9 @@ function SlideShow() {
   // Recupere o array de álbuns que foi passado como parâmetro
   const albums = location.state?.albums || [];
 
-  // Use efeito para logar os dados recebidos quando o componente for montado
   useEffect(() => {
-    console.log('Received albums:', albums);
+    // Coloque aqui o código que depende de 'albums'
+    console.log("SlideShow started with albums:", albums);
   }, [albums]);
 
   return (

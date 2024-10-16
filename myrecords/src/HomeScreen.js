@@ -1,14 +1,14 @@
 // Bibliotecas 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState} from 'react';
 import axios from 'axios';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { BrowserRouter as useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // Telas
 import AlbumFrame from './components/AlbumFrame';
 // Componentes de imagem
 import Lupa from './styles/icons/lupa.png';
-import {FaChevronDown, FaPlay}  from 'react-icons/fa';
+import {FaChevronDown}  from 'react-icons/fa';
 
 function HomeScreen() {
   const [inputValue, setInputValue] = useState('');
@@ -16,7 +16,7 @@ function HomeScreen() {
   const divRef = useRef();
   const navigate = useNavigate();
 
-  // Inicializa as posições com o número especificado de molduras (sem imagem)
+  // Inicializa as posições com 15 posições 
   const [positions, setPositions] = useState(
     Array(15).fill({
       imageUrl: null,
@@ -107,7 +107,7 @@ function HomeScreen() {
             <button 
               className='w-[15%] text-base text-black bg-white p-2' 
               onClick={handleButtonClick}>  
-              <img className="w-full h-full object-contain" src={Lupa} />
+              <img className="w-full h-full object-contain" src={Lupa} alt="search icon" />
             </button>
           </div>
           <div className="h-96 w-full overflow-auto border border-gray-300">
@@ -144,8 +144,7 @@ function HomeScreen() {
           </button>
         </div>
         {/* <AlbumCollage numberPositions={15} /> */}
-        <div> 
-          <div className="grid grid-cols-5 gap-4 overflow-auto p-6">
+        <div className="grid grid-cols-5 gap-4 overflow-auto p-6">
         {positions.map((position, index) => (
           <AlbumFrame
             key={index}
@@ -159,7 +158,6 @@ function HomeScreen() {
             onDrop={(album) => handleDrop(index, album)} // Manipula o drop para cada moldura
           />
         ))}
-      </div>
         </div>
       </div>
     </div>
