@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { FaPlay, FaPause, FaForward, FaBackward } from 'react-icons/fa';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { FaPlay, FaPause, FaForward, FaBackward, FaTimes } from 'react-icons/fa';
+import AlbumFrame from './components/AlbumFrame';
 
 function SlideShow() {
   const location = useLocation();
-  
   const albums = location.state?.albums || [];
-
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("SlideShow started with albums:", albums);
@@ -26,41 +25,34 @@ function SlideShow() {
     );
   };
 
-
-  useEffect(() => {
-    let interval;
-    if (isPlaying) {
-      interval = setInterval(() => {
-        nextAlbum();
-      }, 3000); 
-    }
-    return () => clearInterval(interval); 
-  }, [isPlaying, currentIndex]);
+  const handleGoBack = () => {
+    navigate(-1); // Equivalente a navigate.goBack()
+  };
 
   return (
     // Tela Inteira
     <div className="overflow-hidden p-6 bg-black h-screen flex flex-col items-center font-afacad">
+      <button className="text-white" onClick={handleGoBack}>
+        <FaTimes />
+      </button>
       {/* Criar uma div aqui para encapsular todas as informacoes do album */}
-      <div className="h-[100%]">
+      <div className="h-full flex flex-col items-center justify-center">
         {/* Título do álbum */}
-        <p className="text-5xl text-white text-center">{albums[currentIndex].albumName}</p>
+        <p className="text-6xl text-white text-center">{albums[currentIndex]?.albumName}</p>
         {albums.length > 0 ? (
-          <div className="h-[100%] pt-6"> {/* Removido o comentário */}
+          <div className="flex flex-col items-center pt-6">
             {/* Imagem do álbum */}
-            <div className='h-[65%] m-6'>
-              <img
-                src={albums[currentIndex].imageUrl}
-                alt={albums[currentIndex].albumName}
-                className="w-full h-full mb-4 text-white"
-              />
-            </div>
-            {/* Informações textuais do álbum */}
-            <div className='flex flex-col text-xl text-gray-600 m-6 text-white text-center'>
-              <p>
-                {albums[currentIndex].artistName}
-              </p>
-            </div>
-            <div className="flex justify-center gap-4 text-4xl text-white">
+            <AlbumFrame
+              key={currentIndex} // Utilize currentIndex como chave
+              imageUrl={albums[currentIndex].imageUrl} // Corrija para o caminho correto da imagem
+              albumUri={albums[currentIndex].albumUri}
+              albumName={albums[currentIndex].albumName}
+              albumType={albums[currentIndex].albumType}
+              width={300}
+              height={300}
+            />
+            <p className='text-white text-4xl'> {albums[currentIndex].artistName} </p>
+            <div className="flex justify-center gap-4 text-4xl text-white mt-4">
               <button onClick={prevAlbum} className="hover:text-yellow-500">
                 <FaBackward />
               </button>
@@ -71,7 +63,7 @@ function SlideShow() {
                   rel="noopener noreferrer"
                   className="text-blue-500 text-white"
                 >
-                  <FaPlay/>
+                  <FaPlay />
                 </a>
               </button>
               <button onClick={nextAlbum} className="hover:text-yellow-500">
