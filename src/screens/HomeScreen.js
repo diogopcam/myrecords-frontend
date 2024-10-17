@@ -155,11 +155,10 @@ function HomeScreen() {
           </button>
         </div>
       </div>
-      <div className="p-4 flex flex-col justify-center items-center bg-black w-full">
+      <div className="p-9 flex flex-col justify-center items-center bg-black w-full">
         <div className='flex flex-row gap-10 items-end'>
-          <button onClick={startSlideShow}>
-            <FaChevronDown color='white' />
-          </button>
+          {/* Botão para iniciar o show de slides */}
+          <button onClick={startSlideShow}> <FaChevronDown color='white'/> </button>
           {/* Botões para aumentar e diminuir o número de frames */}
           <button onClick={increaseFrames} className="text-white">+</button>
           <button onClick={decreaseFrames} className="text-white">-</button>
