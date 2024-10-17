@@ -164,9 +164,7 @@ function HomeScreen() {
           </button>
         </div>
       </div>
-      <div 
-        className="p-4 flex flex-col justify-center items-center bg-black w-full"
-        ref={divRef}>
+      <div className="p-4 flex flex-col justify-center items-center bg-black w-full" >
         <div className='flex flex-row gap-10 items-end'>
           <button onClick={startSlideShow}>
             <FaChevronDown color='white' />
@@ -175,7 +173,8 @@ function HomeScreen() {
           <button onClick={increaseFrames} className="text-white">+</button>
           <button onClick={decreaseFrames} className="text-white">-</button>
         </div>
-        <div className="grid grid-cols-5 gap-4 overflow-auto p-6">
+        <div>
+          <div className="bg-black grid grid-cols-5 gap-4 overflow-auto p-6" ref={divRef}>
           {positions.map((position, index) => (
             <AlbumFrame
               key={index}
@@ -189,6 +188,7 @@ function HomeScreen() {
               onDrop={(album) => handleDrop(index, album)} // Manipula o drop para cada moldura
             />
           ))}
+          </div>
         </div>
       </div>
     </div>
