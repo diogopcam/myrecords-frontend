@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import AlbumFrame from '../components/AlbumFrame';
 import Lupa from '../styles/icons/lupa.png';
 import { FaChevronDown } from 'react-icons/fa';
-import { useAlbumContext } from '../AlbumContext';
 
 function HomeScreen() {
   const [inputValue, setInputValue] = useState('');
@@ -70,10 +69,8 @@ function HomeScreen() {
     // Captura a div usando html2canvas
     html2canvas(element, { scale: 2, useCORS: true }).then((canvas) => {
       const imgData = canvas.toDataURL('image/png');
-      // Calcula a largura e altura da div em mm
       const widthInMm = element.offsetWidth / 3.779527; // Converte pixels para mm
       const heightInMm = element.offsetHeight / 3.779527; // Converte pixels para mm
-      // Cria o PDF na orientação landscape
       const pdf = new jsPDF('landscape', 'mm', [widthInMm, heightInMm]);
       pdf.addImage(imgData, 'PNG', 0, 0, widthInMm, heightInMm);
       pdf.save('album-collage.pdf');
@@ -110,6 +107,20 @@ function HomeScreen() {
         return prevPositions.slice(0, -1); // Remove a última posição se houver mais de uma
       }
       return prevPositions; // Não altera se houver apenas uma posição
+    });
+  };
+
+  // Função para baixar a grade de álbuns como uma imagem
+  const downloadGridImage = () => {
+    const element = divRef.current;
+
+    // Captura a div usando html2canvas
+    html2canvas(element, { scale: 2, useCORS: true }).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = imgData;
+      link.download = 'album-grid.png';
+      link.click();
     });
   };
 
@@ -160,11 +171,11 @@ function HomeScreen() {
           <button 
             className='w-[100%] p-1 text-black text-base bg-white'
             onClick={handleDownloadButton}>
-            Baixar
+            Baixar PDF
           </button>
         </div>
       </div>
-      <div className="p-4 flex flex-col justify-center items-center bg-black w-full" >
+      <div className="p-4 flex flex-col justify-center items-center bg-black w-full">
         <div className='flex flex-row gap-10 items-end'>
           <button onClick={startSlideShow}>
             <FaChevronDown color='white' />
@@ -172,22 +183,24 @@ function HomeScreen() {
           {/* Botões para aumentar e diminuir o número de frames */}
           <button onClick={increaseFrames} className="text-white">+</button>
           <button onClick={decreaseFrames} className="text-white">-</button>
+          {/* Botão para baixar a grade de álbuns como imagem */}
+          <button onClick={downloadGridImage} className="text-white">Baixar Grade</button>
         </div>
-        <div>
+        <div className='h-screen overflow-auto'>
           <div className="bg-black grid grid-cols-5 gap-4 overflow-auto p-6" ref={divRef}>
-          {positions.map((position, index) => (
-            <AlbumFrame
-              key={index}
-              imageUrl={position.imageUrl}
-              albumUri={position.albumUri}
-              albumName={position.albumName}
-              artistName={position.artistName}
-              albumType={position.albumType}
-              width={150}
-              height={150}
-              onDrop={(album) => handleDrop(index, album)} // Manipula o drop para cada moldura
-            />
-          ))}
+            {positions.map((position, index) => (
+              <AlbumFrame
+                key={index}
+                imageUrl={position.imageUrl}
+                albumUri={position.albumUri}
+                albumName={position.albumName}
+                artistName={position.artistName}
+                albumType={position.albumType}
+                width={150}
+                height={150}
+                onDrop={(album) => handleDrop(index, album)} // Manipula o drop para cada moldura
+              />
+            ))}
           </div>
         </div>
       </div>
