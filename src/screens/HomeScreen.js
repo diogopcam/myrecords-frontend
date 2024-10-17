@@ -62,26 +62,6 @@ function HomeScreen() {
     console.log(albums);
   };
 
-  // Método que realiza o download da colagem
-  const downloadCollage = () => {
-    const element = divRef.current;
-
-    // Captura a div usando html2canvas
-    html2canvas(element, { scale: 2, useCORS: true }).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
-      const widthInMm = element.offsetWidth / 3.779527; // Converte pixels para mm
-      const heightInMm = element.offsetHeight / 3.779527; // Converte pixels para mm
-      const pdf = new jsPDF('landscape', 'mm', [widthInMm, heightInMm]);
-      pdf.addImage(imgData, 'PNG', 0, 0, widthInMm, heightInMm);
-      pdf.save('album-collage.pdf');
-    });
-  };
-
-  // Função chamada no clique do botão de baixar a colagem
-  const handleDownloadButton = () => {
-    downloadCollage();
-  };
-
   // Função para redirecionar ao clicar no botão
   const startSlideShow = () => {
     navigate('/slide-show', { state: { albums: positions } }); // Navega para a página 'about'
@@ -170,7 +150,7 @@ function HomeScreen() {
           </div>
           <button 
             className='w-[100%] p-1 text-black text-base bg-white'
-            onClick={handleDownloadButton}>
+            onClick={downloadGridImage}>
             Baixar PDF
           </button>
         </div>
@@ -183,8 +163,6 @@ function HomeScreen() {
           {/* Botões para aumentar e diminuir o número de frames */}
           <button onClick={increaseFrames} className="text-white">+</button>
           <button onClick={decreaseFrames} className="text-white">-</button>
-          {/* Botão para baixar a grade de álbuns como imagem */}
-          <button onClick={downloadGridImage} className="text-white">Baixar Grade</button>
         </div>
         <div className='h-screen overflow-auto'>
           <div className="bg-black grid grid-cols-5 gap-4 overflow-auto p-6" ref={divRef}>
