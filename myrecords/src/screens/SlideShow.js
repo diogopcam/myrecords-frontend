@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FaPlay, FaPause, FaForward, FaBackward, FaTimes } from 'react-icons/fa';
-import AlbumFrame from './components/AlbumFrame';
+import AlbumFrame from '../components/AlbumFrame';
 
 function SlideShow() {
   const location = useLocation();
@@ -31,16 +31,17 @@ function SlideShow() {
 
   return (
     // Tela Inteira
-    <div className="overflow-hidden p-6 bg-black h-screen flex flex-col items-center font-afacad">
+    <div className="overflow-hidden p-3 bg-black h-screen flex flex-col items-center font-afacad">
       <button className="text-white" onClick={handleGoBack}>
         <FaTimes />
       </button>
       {/* Criar uma div aqui para encapsular todas as informacoes do album */}
-      <div className="h-full flex flex-col items-center justify-center">
+      <div className="h-full flex flex-col items-center justify-center gap-3">
         {/* Título do álbum */}
         <p className="text-6xl text-white text-center">{albums[currentIndex]?.albumName}</p>
+        <p className='text-white text-4xl font-abel'> {albums[currentIndex].artistName} </p>
         {albums.length > 0 ? (
-          <div className="flex flex-col items-center pt-6">
+          <div className="flex flex-col items-center">
             {/* Imagem do álbum */}
             <AlbumFrame
               key={currentIndex} // Utilize currentIndex como chave
@@ -48,10 +49,9 @@ function SlideShow() {
               albumUri={albums[currentIndex].albumUri}
               albumName={albums[currentIndex].albumName}
               albumType={albums[currentIndex].albumType}
-              width={300}
-              height={300}
+              width={350}
+              height={350}
             />
-            <p className='text-white text-4xl'> {albums[currentIndex].artistName} </p>
             <div className="flex justify-center gap-4 text-4xl text-white mt-4">
               <button onClick={prevAlbum} className="hover:text-yellow-500">
                 <FaBackward />

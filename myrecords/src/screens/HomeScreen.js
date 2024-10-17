@@ -1,14 +1,11 @@
-// Bibliotecas 
-import React, { useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { useNavigate } from 'react-router-dom';
-// Telas
-import AlbumFrame from './components/AlbumFrame';
-// Componentes de imagem
-import Lupa from './styles/icons/lupa.png';
-import {FaChevronDown}  from 'react-icons/fa';
+import AlbumFrame from '../components/AlbumFrame';
+import Lupa from '../styles/icons/lupa.png';
+import { FaChevronDown } from 'react-icons/fa';
 
 function HomeScreen() {
   const [inputValue, setInputValue] = useState('');
@@ -74,14 +71,37 @@ function HomeScreen() {
     });
   };
 
-  /// Função chamada no clique do botão de baixar a colagem
+  // Função chamada no clique do botão de baixar a colagem
   const handleDownloadButton = () => {
     downloadCollage();
   };
 
   // Função para redirecionar ao clicar no botão
   const startSlideShow = () => {
-    navigate('/slide-show', {state: {albums: positions}}); // Navega para a página 'about'
+    navigate('/slide-show', { state: { albums: positions } }); // Navega para a página 'about'
+  };
+
+  // Funções para aumentar e diminuir o número de frames
+  const increaseFrames = () => {
+    setPositions((prevPositions) => [
+      ...prevPositions,
+      {
+        imageUrl: null,
+        albumUri: '',
+        albumName: '',
+        artistName: '',
+        albumType: ''
+      }
+    ]);
+  };
+
+  const decreaseFrames = () => {
+    setPositions((prevPositions) => {
+      if (prevPositions.length > 1) {
+        return prevPositions.slice(0, -1); // Remove a última posição se houver mais de uma
+      }
+      return prevPositions; // Não altera se houver apenas uma posição
+    });
   };
 
   return (
@@ -138,26 +158,28 @@ function HomeScreen() {
       <div 
         className="p-4 flex flex-col justify-center items-center bg-black w-full"
         ref={divRef}>
-        <div className='flex flex-row gap-10 items-end'> 
+        <div className='flex flex-row gap-10 items-end'>
           <button onClick={startSlideShow}>
-            <FaChevronDown color='white'/>
+            <FaChevronDown color='white' />
           </button>
+          {/* Botões para aumentar e diminuir o número de frames */}
+          <button onClick={increaseFrames} className="text-white">+</button>
+          <button onClick={decreaseFrames} className="text-white">-</button>
         </div>
-        {/* <AlbumCollage numberPositions={15} /> */}
         <div className="grid grid-cols-5 gap-4 overflow-auto p-6">
-        {positions.map((position, index) => (
-          <AlbumFrame
-            key={index}
-            imageUrl={position.imageUrl}
-            albumUri={position.albumUri}
-            albumName={position.albumName}
-            artistName={position.artistName}
-            albumType={position.albumType}
-            width={150}
-            height={150}
-            onDrop={(album) => handleDrop(index, album)} // Manipula o drop para cada moldura
-          />
-        ))}
+          {positions.map((position, index) => (
+            <AlbumFrame
+              key={index}
+              imageUrl={position.imageUrl}
+              albumUri={position.albumUri}
+              albumName={position.albumName}
+              artistName={position.artistName}
+              albumType={position.albumType}
+              width={150}
+              height={150}
+              onDrop={(album) => handleDrop(index, album)} // Manipula o drop para cada moldura
+            />
+          ))}
         </div>
       </div>
     </div>

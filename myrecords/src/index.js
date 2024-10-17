@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import HomeScreen from './HomeScreen';
-import SlideShow from './SlideShow';
+import HomeScreen from './screens/HomeScreen';
+import SlideShow from './screens/SlideShow';
 import reportWebVitals from './reportWebVitals';
 import './styles/styles.css';
 

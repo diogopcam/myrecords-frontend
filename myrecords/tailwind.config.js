@@ -7,7 +7,7 @@ module.exports = {
     extend: {
       fontFamily: {
         afacad: ['Afacad', 'sans-serif'],
-        abel: ['Abels', 'sans-serif']
+        abel: ['Abel', 'sans-serif']
       },
     },
   },
