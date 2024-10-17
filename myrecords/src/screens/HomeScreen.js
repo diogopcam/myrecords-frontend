@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import AlbumFrame from '../components/AlbumFrame';
 import Lupa from '../styles/icons/lupa.png';
 import { FaChevronDown } from 'react-icons/fa';
+import { useAlbumContext } from '../AlbumContext';
 
 function HomeScreen() {
   const [inputValue, setInputValue] = useState('');
@@ -13,22 +14,30 @@ function HomeScreen() {
   const divRef = useRef();
   const navigate = useNavigate();
 
-  // Inicializa as posições com 15 posições 
-  const [positions, setPositions] = useState(
-    Array(15).fill({
+  const [positions, setPositions] = useState(() => {
+    const savedPositions = localStorage.getItem('albumPositions');
+    return savedPositions ? JSON.parse(savedPositions) : Array(15).fill({
       imageUrl: null,
       albumUri: '',
       albumName: '',
       artistName: '',
       albumType: ''
-    })
-  );
+    });
+  });
+
+  useEffect(() => {
+    const savedPositions = localStorage.getItem('albumPositions');
+    if (savedPositions) {
+      setPositions(JSON.parse(savedPositions));
+    }
+  }, []);
 
   // Função para atualizar o estado ao soltar uma imagem
   const handleDrop = (index, album) => {
-    const newPositions = [...positions]; // Copia o estado atual
-    newPositions[index] = album; // Atualiza a posição com o novo objeto de álbum
-    setPositions(newPositions); // Atualiza o estado
+    const newPositions = [...positions];
+    newPositions[index] = album;
+    setPositions(newPositions);
+    localStorage.setItem('albumPositions', JSON.stringify(newPositions)); // Salva as posições
   };
 
   // Método que lida com a mudança de texto no input de pesquisa
