@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaPlayCircle } from 'react-icons/fa';
 
-function AlbumFrame({ imageUrl, albumUri, width, height, onDrop, albumName, artistName, albumType }) {
+function AlbumFrame({ imageUrl, albumUri, width, height, onDrop, albumName, artistName, albumType, albumId }) {
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -19,7 +19,8 @@ function AlbumFrame({ imageUrl, albumUri, width, height, onDrop, albumName, arti
       albumUri,
       albumName,
       artistName,
-      albumType
+      albumType,
+      albumId
     });
     e.dataTransfer.setData("text/plain", album);
   };

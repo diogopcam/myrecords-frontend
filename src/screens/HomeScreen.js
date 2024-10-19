@@ -20,15 +20,18 @@ function HomeScreen() {
       albumUri: '',
       albumName: '',
       artistName: '',
-      albumType: ''
+      albumType: '',
+      albumId: ''
     });
   });
 
   useEffect(() => {
     const savedPositions = localStorage.getItem('albumPositions');
     if (savedPositions) {
+      console.log(JSON.parse(savedPositions))
       setPositions(JSON.parse(savedPositions));
     }
+    console.log(`Esse é o array positions ${JSON.stringify(positions)}`)
   }, []);
 
   // Função para atualizar o estado ao soltar uma imagem
@@ -37,6 +40,7 @@ function HomeScreen() {
     newPositions[index] = album;
     setPositions(newPositions);
     localStorage.setItem('albumPositions', JSON.stringify(newPositions)); // Salva as posições
+    console.log(`Esse é o array após o drop ${JSON.stringify(newPositions)}`)
   };
 
   // Método que lida com a mudança de texto no input de pesquisa
@@ -76,7 +80,8 @@ function HomeScreen() {
         albumUri: '',
         albumName: '',
         artistName: '',
-        albumType: ''
+        albumType: '',
+        albumId: ''
       }
     ]);
   };
@@ -140,6 +145,7 @@ function HomeScreen() {
                   albumName={album.albumName}
                   artistName={album.artistName}
                   albumType={album.albumType}
+                  albumId={album.albumId}
                   width={100}
                   height={100}
                 />
@@ -173,6 +179,7 @@ function HomeScreen() {
                 albumName={position.albumName}
                 artistName={position.artistName}
                 albumType={position.albumType}
+                albumId={position.albumId}
                 width={150}
                 height={150}
                 onDrop={(album) => handleDrop(index, album)} // Manipula o drop para cada moldura
