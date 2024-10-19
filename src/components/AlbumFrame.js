@@ -35,7 +35,7 @@ function AlbumFrame({ imageUrl, albumUri, width, height, onDrop, albumName, arti
       onDrop={handleDrop}
       onDragOver={handleDragOver}
       onDragStart={handleDragStart}
-      style={{ width: `${width}px`, height: `${height}px` }}
+      style={{ width: `${width}%`, height: `${height}%` }}
       className="relative border-2 border-black m-2 inline-block bg-gray-200 cursor-pointer group"
     >
       {imageUrl ? (
@@ -59,7 +59,7 @@ function AlbumFrame({ imageUrl, albumUri, width, height, onDrop, albumName, arti
           </div>
         </div>
       ) : (
-        <div className="text-gray-500 text-xs text-center flex items-center justify-center h-full">Add your album here</div>
+        <div className="text-gray-500 text-xs text-center flex justify-center h-full">Add your album here</div>
       )}
     </div>
   );

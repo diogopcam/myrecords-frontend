@@ -37,12 +37,13 @@ function SlideShow() {
         <FaTimes />
       </button>
       {/* Criar uma div aqui para encapsular todas as informacoes do album */}
-      <div className="h-full flex flex-col items-center justify-center gap-3">
+      <div className="h-full w-full flex flex-col items-center justify-center gap-3">
         {/* Título do álbum */}
         <p className="text-8xl text-white text-center">{albums[currentIndex]?.albumName}</p>
         <p className='text-white text-4xl font-abel font-thin'> {albums[currentIndex]?.artistName} </p>
         {albums.length > 0 ? (
-          <div className="flex flex-row items-center">
+          // Div em linha que encapsula a capa, tracklist...
+          <div className="w-full flex flex-row justify-center gap-5">
             <button onClick={prevAlbum} className="text-white">
               <FaBackward />
             </button>
@@ -55,14 +56,14 @@ function SlideShow() {
               albumName={albums[currentIndex].albumName}
               albumType={albums[currentIndex].albumType}
               albumId={albums[currentIndex].albumId}
-              width={350}
-              height={350}
+              width={35}
+              height={100}
             />
           <iframe
             title="Spotify Embed: Recommendation Playlist "
             src={`https://open.spotify.com/embed/album/${albums[currentIndex].albumId}`}
             // https://open.spotify.com/album/3mH6qwIy9crq0I9YQbOuDf
-            width="100%"
+            width="40%"
             height="100%"
             style={{ minHeight: '360px' }}
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
